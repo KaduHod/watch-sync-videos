@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client 2</title>
+</head>
+<body>
+    <h2>Client 2</h2>
+    <button id="botao">Send Hello there</button>
+    <input type="text" id="message">
+    <script>
+        const webSocket = new WebSocket('ws://127.0.0.1:3000')
+        const text = document.getElementById('message')
+        const botao = document.getElementById('botao')
+
+        webSocket.addEventListener('open', ()=>{
+            console.log('Connected to the server!')
+        })
+        webSocket.addEventListener('message', handleMassegeFromServer)
+
+        botao.addEventListener('click', ()=>{
+            webSocket.send(JSON.stringify({message : text.value, client:2}))
+        })
+
+        function handleMassegeFromServer(event){
+            console.log(JSON.parse(event.data))
+        }
+        
+
+        
+    </script>
+</body>
+</html>
