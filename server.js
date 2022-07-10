@@ -18,10 +18,9 @@ function handleWSS(ws, request){
 function handleMessage(ws, data){
     const message = JSON.parse(data)
     wss.clients.forEach(function each(client){
-        if(client !== ws && client.readyState === WebSocket.OPEN){
+        if(client !== ws && client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify(message))
-        }
+        }        
     }) 
-
 }
-server.listen(process.env.PORT, ()=>console.log('Web Socket server running at ' + process.env.SERVER_URL ))
+server.listen(process.env.PORT, () => console.log('Web Socket server running at ' + process.env.SERVER_URL ))

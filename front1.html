@@ -8,29 +8,8 @@
 </head>
 <body>
     <h1>Cliente 1</h1>
-    <button  id="botao">Send Hello there</button>
-    <input type="text" id="message">
-    <script>
-        const webSocket = new WebSocket('ws://127.0.0.1:3000')
-        const text = document.getElementById('message')
-        const botao = document.getElementById('botao')
-
-        webSocket.addEventListener('open', () => {
-            console.log('Connected to the server!')
-        })
-
-        webSocket.addEventListener('message', handleMassegeFromServer)
-
-        botao.addEventListener('click', () => {
-            webSocket.send(JSON.stringify({message : text.value, client:1}))
-        })
-
-        function handleMassegeFromServer(event){
-            console.log(JSON.parse(event.data))
-        }
-        
-
-
-    </script>
+    <button  id="botao" >Send Hello there</button>
+    <input type="text" data-client-id="2" id="message">
+    <script src="./web-socket-client.js"></script>
 </body>
 </html>
