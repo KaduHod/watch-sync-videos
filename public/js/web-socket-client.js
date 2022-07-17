@@ -1,6 +1,6 @@
-const webSocket = new WebSocket('ws://127.0.0.1:3000')
-const text      = document.getElementById('youtube-url')
-const botaoMudarVideo     = document.getElementById('url-button')
+const webSocket       = new WebSocket('ws://127.0.0.1:3000')
+const text            = document.getElementById('youtube-url')
+const botaoMudarVideo = document.getElementById('url-button')
 
 webSocket.addEventListener('open', () => {
     console.log('Connected to the server!')
@@ -10,19 +10,36 @@ botaoMudarVideo.addEventListener('click', sendNewVideo)
 
 function sendNewVideo(){
     let url = document.getElementById('youtube-url').value
-    let id = getVideoId(url)
+    let id  = getVideoId(url)
+    if(!id) return
     handleYoutubeEmbeddedPlayer(id)
-    console.log('enviando para o servidor', { dado: id, action: 'switch-video'})
     webSocket.send(JSON.stringify({ dado: id, action: 'switch-video'}))
+    resetButtonValue()
+    changeButtonTitle('Mudar de vídeo')
 }
-
 
 function handleMassegeFromServer(event){
     const { action, dado } = JSON.parse(event.data)
+
+    console.log({action, dado})
     switch (action) {
         case 'switch-video' :
             changeVideo(dado)
             break;
+        case 'pause-video':
+            player.pauseVideo()
+            break;
+        case 'seek-too':
+            player.seekTo(dado.seconds, true)
+            break;
+        case 'run-video':
+            player.playVideo()
+            break;
     }
 }
+
+function sendNewState(state){
+    webSocket.send(JSON.stringify(state))
+}
+
         

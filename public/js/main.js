@@ -9,7 +9,6 @@ function handleYoutubeEmbeddedPlayer(videoid){
             createPlayer(videoid);
             break;
     }
-    return videoid
 }
 
 function createPlayer(videoid){
@@ -26,39 +25,74 @@ var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
     height: '360',
-    width: '640',
+    width: '500',
     videoId: document.getElementById('videoid').dataset.videoid,
+    color: 'black',
     events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange,
-        'onError': error => console.log(error)
+        'onError': error => console.log(error),
         }   
     });
 }
 
 function changeVideo(videoid){
-    if(!playerCreated) return createPlayer(videoid)
-    player.loadVideoById(videoid, 0, 'large')
+    switch (playerCreated){
+        case true:
+            player.loadVideoById(videoid, 0, 'large')
+            break;
+        case false:
+            createPlayer(videoid)
+            break;
+    }    
 }
 
 function onPlayerReady(event) {
-    event.target.playVideo();
+    event.target.mute();
 }
-
 
 var done = false;
+newState = null;
 function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-        done = true;
+    if (event.data == YT.PlayerState.PLAYING && !done) done = true;
+    let state = getPlayerState(event.data);
+    changeButtonTitle('Mudar de vídeo');
+    sendNewState(state)
+}
+
+function stopVideo() { player.stopVideo() };
+
+function changeButtonTitle(title) { botaoMudarVideo.innerText = title }
+
+function resetButtonValue() { botaoMudarVideo.value = '' }
+
+function getPlayerState(stateId){
+    switch (stateId) {
+        case -1:
+            stateObj = { action: 'Não iniciado', stateId: "-1" };
+            break;
+        case 0:
+            stateObj = { action:'Encerrado', stateId: "0" };
+            break;
+        case 1:
+            stateObj = { action:'run-video', stateId: "1" };
+            break;
+        case 2:
+            stateObj = { action:'pause-video', stateId: "2" };
+            break;
+        case 5:
+            stateObj = { action:'Vídeo indicado', stateId: "5" };
+            break;
+        default : 
+            stateObj = { action:'Default', stateId: null };
+            break;
     }
-    changeButtonTitle()
+    stateObj.client = getClientName()
+    return stateObj;
 }
 
-function stopVideo() {
-    player.stopVideo();
-}
 
-function changeButtonTitle(){
-    botaoMudarVideo.innerText = 'Mudar de vídeo'
-}
 
+function getClientName(){
+    return document.getElementById('client-name').dataset.clientName
+}

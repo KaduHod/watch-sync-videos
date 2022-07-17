@@ -20,6 +20,13 @@ body{
     padding: 10px;
 }
 #player{
-    border-radius: 20px;
-    box-shadow: 0px 10px 20px grey;
+    border: 1px solid ced4da;
+    border-radius: 10px;
+    
+}
+
+@media only screen and (max-width: 600px) {
+    .form-container input {
+        width: 400px;
+    }
 }

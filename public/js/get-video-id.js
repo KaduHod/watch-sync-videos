@@ -1,15 +1,10 @@
-
 function getVideoId(url){
     if(url === '') return
     const id = extractVideoID(url)
-    
-    if(!id){
-        alert('Video não existe seu burro');
-        return false
-    }
-    
+    if(!id) { alert('Video não existe ;-;'); return false }
     return id
 }
+
 function extractVideoID(url) {
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     const match = url.match(regExp);
