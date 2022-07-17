@@ -5,6 +5,7 @@ const botaoMudarVideo = document.getElementById('url-button')
 webSocket.addEventListener('open', () => {
     console.log('Connected to the server!')
 })
+
 webSocket.addEventListener('message', handleMassegeFromServer)
 botaoMudarVideo.addEventListener('click', sendNewVideo)
 
@@ -20,8 +21,6 @@ function sendNewVideo(){
 
 function handleMassegeFromServer(event){
     const { action, dado } = JSON.parse(event.data)
-
-    console.log({action, dado})
     switch (action) {
         case 'switch-video' :
             changeVideo(dado)
