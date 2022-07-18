@@ -41,6 +41,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 function changeVideo(videoid){
+    console.log('aqui')
     switch (playerCreated){
         case true:
             player.loadVideoById(videoid, 0, 'large')
