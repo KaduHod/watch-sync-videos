@@ -45,13 +45,13 @@ function handlerMessage({data}){
     const { action, dado } = JSON.parse(data)
 
     const actions = {
-        'switch-video' : changeVideo(dado),
-        'pause-video'  : player.pauseVideo(),
+        'switch-video' : (dado) => changeVideo(dado),
+        'pause-video'  : (dado) => player.pauseVideo(),
         'seek-too'     : player.seekTo(dado.seconds, true),
         'run-video'    : player.playVideo()
     }
-    console.log(actions[action])
-    return actions[action]
+    
+    return actions[action](dado)
 }
 
 function sendNewState(state){
