@@ -76,25 +76,4 @@ function getPlayerState(stateId){
         '5'  : { action:'Vídeo indicado', stateId: "5"  }
     }
     return stateTypes[stateId.toString()] || { action:'Default', stateId: null }
-    /* switch (stateId) {
-        case -1:
-            stateObj = { action: 'Não iniciado', stateId: "-1" };
-            break;
-        case 0:
-            stateObj = { action:'Encerrado', stateId: "0" };
-            break;
-        case 1:
-            stateObj = { action:'run-video', stateId: "1" };
-            break;
-        case 2:
-            stateObj = { action:'pause-video', stateId: "2" };
-            break;
-        case 5:
-            stateObj = { action:'Vídeo indicado', stateId: "5" };
-            break;
-        default : 
-            stateObj = { action:'Default', stateId: null };
-            break;
-    }
-    return stateObj; */
 }

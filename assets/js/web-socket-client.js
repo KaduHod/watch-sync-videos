@@ -37,6 +37,19 @@ function handleMassegeFromServer(event){
     }
 }
 
+ function handlerMessage({data}){
+     const { action, dado } = JSON.parse(data)
+
+    const actions = {
+        'switch-video' : changeVideo,
+        'pause-video'  : player.pauseVideo,
+        // 'seek-too'     : player.seekTo(dado.seconds, true),
+        'run-video'    : player.playVideo
+    }
+    
+    return actions[action]
+}
+
 function sendNewState(state){
     webSocket.send(JSON.stringify(state))
 }
