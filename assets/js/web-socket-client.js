@@ -14,10 +14,6 @@ function sendNewVideo(){
     let id  = getVideoId(url)
     if(!id) return
     handleYoutubeEmbeddedPlayer(id)
-    alert('Amor, me perdoa, meeeeeeeeeesmo!')
-    alert('Eu te amo pra caralho!')
-    alert('Eu vo chora ;-;')
-    alert('Eu te amo muito ;-;')
     webSocket.send(JSON.stringify({ dado: id, action: 'switch-video'}))
     resetButtonValue()
     changeButtonTitle('Mudar de vídeo')
