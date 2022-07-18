@@ -3,10 +3,6 @@ var playerCreated = false
 const changeButtonTitle = title => botaoMudarVideo.innerText = title
 const resetButtonValue  = () => text.value = ''
 
-function changeButtonTitle(title) { botaoMudarVideo.innerText = title }
-
-function resetButtonValue() { botaoMudarVideo.value = '' }
-
 function handleYoutubeEmbeddedPlayer(videoid){
     let playerExists = !!document.getElementById('videoid')
     switch (playerExists){
