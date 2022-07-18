@@ -47,7 +47,7 @@ function handlerMessage({data}){
     const actions = {
         'switch-video' : changeVideo(dado),
         'pause-video'  : player.pauseVideo(),
-        'seek-too'     : player.seekTo(dado.seconds, true),
+        // 'seek-too'     : player.seekTo(dado.seconds, true),
         'run-video'    : player.playVideo()
     }
     
