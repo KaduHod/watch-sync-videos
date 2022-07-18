@@ -6,7 +6,7 @@ webSocket.addEventListener('open', () => {
     console.log('Connected to the server!')
 })
 
-webSocket.addEventListener('message', handleMassegeFromServer)
+webSocket.addEventListener('message', handlerMessage)
 botaoMudarVideo.addEventListener('click', sendNewVideo)
 
 function sendNewVideo(){
@@ -43,6 +43,7 @@ function handleMassegeFromServer(event){
 
 function handlerMessage({data}){
     const { action, dado } = JSON.parse(data)
+    
     const actions = {
         'switch-video' : changeVideo(dado),
         'pause-video'  : player.pauseVideo(),
