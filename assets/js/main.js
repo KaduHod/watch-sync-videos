@@ -87,12 +87,5 @@ function getPlayerState(stateId){
             stateObj = { action:'Default', stateId: null };
             break;
     }
-    stateObj.client = getClientName()
     return stateObj;
-}
-
-
-
-function getClientName(){
-    return document.getElementById('client-name').dataset.clientName
 }
