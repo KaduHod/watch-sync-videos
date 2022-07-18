@@ -1,4 +1,4 @@
-const webSocket       = new WebSocket('ws://127.0.0.1:3000')
+const webSocket       = new WebSocket('ws://watch-sync-videos.herokuapp.com/')
 const text            = document.getElementById('youtube-url')
 const botaoMudarVideo = document.getElementById('url-button')
 
