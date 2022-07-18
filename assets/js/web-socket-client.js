@@ -41,17 +41,17 @@ function handleMassegeFromServer(event){
     }
 }
 
-function handlerMessage({data}){
-    const { action, dado } = JSON.parse(data)
+ function handlerMessage({data}){
+     const { action, dado } = JSON.parse(data)
 
     const actions = {
-        'switch-video' : changeVideo(dado),
-        'pause-video'  : player.pauseVideo(),
+        'switch-video' : changeVideo,
+        'pause-video'  : player.pauseVideo,
         // 'seek-too'     : player.seekTo(dado.seconds, true),
-        'run-video'    : player.playVideo()
+        'run-video'    : player.playVideo
     }
     
-    return true
+    return actions[action]
 }
 
 function sendNewState(state){
