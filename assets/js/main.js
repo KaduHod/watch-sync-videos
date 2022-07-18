@@ -35,7 +35,7 @@ function onYouTubeIframeAPIReady() {
     events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange,
-        'onError': error => console.log(error),
+        'onError': error => alert('Infelzimente ocorreu um erro com o Player ;-;'),
         }   
     });
 }

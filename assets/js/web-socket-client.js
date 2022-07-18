@@ -19,8 +19,12 @@ function sendNewVideo(){
     changeButtonTitle('Mudar de vídeo')
 }
 
-function handleMassegeFromServer({data}){
-    const { action, dado } = JSON.parse(data)
+function handleMassegeFromServer(event){
+    const { action, dado } = JSON.parse(event.data)
+
+
+
+
     switch (action) {
         case 'switch-video' :
             changeVideo(dado)
@@ -35,6 +39,17 @@ function handleMassegeFromServer({data}){
             player.playVideo()
             break;
     }
+}
+
+function handlerMessage({data}){
+    const { action, dado } = JSON.parse(data)
+    const actions = {
+        'switch-video' : changeVideo(dado),
+        'pause-video'  : player.pauseVideo(),
+        'seek-too'     : player.seekTo(dado.seconds, true),
+        'run-video'    : player.playVideo()
+    }
+    return actions[action]
 }
 
 function sendNewState(state){
