@@ -19,8 +19,8 @@ function sendNewVideo(){
     changeButtonTitle('Mudar de vídeo')
 }
 
-function handleMassegeFromServer(event){
-    const { action, dado } = JSON.parse(event.data)
+function handleMassegeFromServer({data}){
+    const { action, dado } = JSON.parse(data)
     switch (action) {
         case 'switch-video' :
             changeVideo(dado)
