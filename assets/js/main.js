@@ -52,7 +52,7 @@ function changeVideo(videoid){
 }
 
 function onPlayerReady(event) {
-    event.target.mute();
+    //event.target.mute();
 }
 
 var done = false;
