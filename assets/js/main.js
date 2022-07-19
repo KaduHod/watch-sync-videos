@@ -22,6 +22,7 @@ function createPlayer(videoid){
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     playerCreated = true
     console.log(player)
+    onYouTubeIframeAPIReady()
 }
 
 var player;
