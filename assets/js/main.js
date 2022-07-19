@@ -1,6 +1,7 @@
-const { Console } = require("console");
-
-const changeButtonTitle = title => botaoMudarVideo.innerText = title;
+const changeButtonTitle = title => {
+    if(!!botaoMudarVideo == false) return
+    botaoMudarVideo.innerText = title
+};
 const resetButtonValue  = () => text.value = '';
 function handleYoutubeEmbeddedPlayer(videoid){
     let playerExists = !!document.getElementById('videoid')
