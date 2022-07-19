@@ -4,6 +4,8 @@ const { createServer } = require('http')
 const WebSocket  = require('ws')
 const server = createServer(app)
 const wss = new WebSocket.Server({server})
+const cors = require('cors')
+
 require('dotenv').config()
 
 wss.on('connection', handleWSS)
@@ -11,6 +13,10 @@ wss.on('connection', handleWSS)
 function handleWSS(ws, request){
     ws.on('message', data => handleMessage(ws, data))
 }
+
+app.use(cors({
+    origin: 'https://watch-sync-videos.vercel.app'
+}));
 
 function handleMessage(ws, data){
     const { dado, action, toTime } = JSON.parse(data)
