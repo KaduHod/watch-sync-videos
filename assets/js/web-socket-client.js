@@ -17,6 +17,7 @@ function serverHandler({data}){
 
 function handleMessageFromServer({data}){
     const { action, dado, playerInfo } = JSON.parse(data)
+    console.log(data, 'Recebi')
 
     switch(action){
         case 'switch-video':
