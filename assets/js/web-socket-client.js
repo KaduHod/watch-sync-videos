@@ -13,15 +13,19 @@ function handleMessageFromServer({data}){
     const { action, dado, toTime } = JSON.parse(data)
     switch(action){
         case 'switch-video':
+            console.log('MUDARAM O VIDEO')
             changeVideo(dado)
             break
         case 'pause-video':
+            console.log('PAUSARAM O VIDEO')
             player.pauseVideo()
             break
         case 'run-video':
+            console.log('DERAM PLAY NO VIDEO')
             player.playVideo()
             break
         case 'seek-to':
+            console.log('MUDARAM O TEMPO DO VIDEO')
             player.seekTo(toTime, true)
             lastTimeUpdate = toTime
             break

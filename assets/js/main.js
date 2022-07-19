@@ -1,3 +1,5 @@
+const { Console } = require("console");
+
 const changeButtonTitle = title => botaoMudarVideo.innerText = title;
 const resetButtonValue  = () => text.value = '';
 function handleYoutubeEmbeddedPlayer(videoid){
@@ -98,6 +100,7 @@ var done = false;
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) done = true;
     let state = stateTypes.getType(event.data)
+    console.log('Eu dei ordem de: ',state)
     if(state.action == 'Default') return
     state.currentTime = player.playerInfo.currentTime
     state.clientName = 'Sem nomezinho aqui rapaz!'
