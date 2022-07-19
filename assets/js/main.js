@@ -21,6 +21,7 @@ function createPlayer(videoid){
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     playerCreated = true
+    console.log(player)
 }
 
 var player;
