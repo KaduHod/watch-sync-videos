@@ -1,8 +1,6 @@
-var playerCreated = false
-
-const changeButtonTitle = title => botaoMudarVideo.innerText = title
-const resetButtonValue  = () => text.value = ''
-
+var playerCreated = false;
+const changeButtonTitle = title => botaoMudarVideo.innerText = title;
+const resetButtonValue  = () => text.value = '';
 function handleYoutubeEmbeddedPlayer(videoid){
     let playerExists = !!document.getElementById('videoid')
     switch (playerExists){
@@ -41,7 +39,6 @@ function onYouTubeIframeAPIReady() {
 }
 
 function changeVideo(videoid){
-    console.log('aqui')
     switch (playerCreated){
         case true:
             player.loadVideoById(videoid, 0, 'large')
@@ -60,20 +57,8 @@ var done = false;
 newState = null;
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) done = true;
-    let state = getPlayerState(event.data);
+    let state = stateTypes.getType(event.data)
+        state.playerInfo = player.playerInfo
     changeButtonTitle('Mudar de vídeo');
     sendNewState(state)
-}
-
-
-
-function getPlayerState(stateId){
-    const stateTypes = {
-        '-1' : { action:'Não iniciado',   stateId: "-1" },
-        '0'  : { action:'Encerrado',      stateId: "0"  },
-        '1'  : { action:'run-video',      stateId: "1"  },
-        '2'  : { action:'pause-video',    stateId: "2"  },
-        '5'  : { action:'Vídeo indicado', stateId: "5"  }
-    }
-    return stateTypes[stateId.toString()] || { action:'Default', stateId: null }
 }
