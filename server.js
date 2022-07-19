@@ -13,13 +13,13 @@ function handleWSS(ws, request){
 }
 
 function handleMessage(ws, data){
-    const {dado, action, playerInfo} = JSON.parse(data)
-    wss.clients.forEach( client => {
+    const { dado, action, toTime } = JSON.parse(data)
+    wss.clients.forEach( function each(client){
         if(client !== ws && client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify({dado, action, playerInfo}))
+            client.send(JSON.stringify({ dado, action, toTime }))
         }        
     }) 
 }
 
-server.listen(process.env.PORT, () => 
-        console.log('Web Socket server running at ' + process.env.SERVER_URL ))
+server.listen(3000, () => 
+        console.log('Web Socket server running at localhost:3000'))
