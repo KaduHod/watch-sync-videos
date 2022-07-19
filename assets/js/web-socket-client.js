@@ -22,6 +22,7 @@ function handleMessageFromServer({data}){
             break
         case 'seek-to':
             player.seekTo(toTime, true)
+            lastTimeUpdate = toTime
             break
     }
 }
