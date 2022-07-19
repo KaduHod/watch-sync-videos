@@ -1,5 +1,5 @@
 const webSocket       = new WebSocket('wss://watch-sync-videos.herokuapp.com/')
-// const webSocket       = new WebSocket('ws://localhost:3000')
+//const webSocket       = new WebSocket('ws://localhost:3000')
 const text            = document.getElementById('youtube-url')
 const botaoMudarVideo = document.getElementById('url-button')
 
@@ -10,26 +10,9 @@ webSocket.addEventListener('open', () => {
 webSocket.addEventListener('message', handleMessageFromServer)
 
 function handleMessageFromServer({data}){
-    const { action, dado, toTime } = JSON.parse(data)
-    switch(action){
-        case 'switch-video':
-            console.log('MUDARAM O VIDEO')
-            changeVideo(dado)
-            break
-        case 'pause-video':
-            console.log('PAUSARAM O VIDEO')
-            player.pauseVideo()
-            break
-        case 'run-video':
-            console.log('DERAM PLAY NO VIDEO')
-            player.playVideo()
-            break
-        case 'seek-to':
-            console.log('MUDARAM O TEMPO DO VIDEO')
-            player.seekTo(toTime, true)
-            lastTimeUpdate = toTime
-            break
-    }
+    const serverData = JSON.parse(data)
+    control.lastStateChangeFrom = 'server'
+    playerActions[serverData.action](serverData)
 }
 
 botaoMudarVideo.addEventListener('click', sendNewVideo)
@@ -39,9 +22,10 @@ function sendNewVideo(){
     let id  = getVideoId(url)
     if(!id) return
     handleYoutubeEmbeddedPlayer(id)
-    webSocket.send(JSON.stringify({ dado: id, action: 'switch-video', playerInfo : null, clientName :window.location.href.split('/')[5]}))
+    webSocket.send(JSON.stringify({ videoid: id, action: 'switch-video', key:clientKey }))
     resetButtonValue()
     changeButtonTitle('Mudar de vídeo')
+    control.lastStateChangeFrom = 'client'
 }
 
         

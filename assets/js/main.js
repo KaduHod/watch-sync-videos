@@ -64,7 +64,7 @@ function onYouTubeIframeAPIReady() {
           // but we only care about whole second changes.
             var time = Math.floor(data.info.currentTime);
             if (time - 2 > lastTimeUpdate || time + 2 < lastTimeUpdate) {
-                sendNewState({action:'seek-to', toTime: time})
+                sendNewState({action:'seek-to', seconds: time, key:clientKey})
                 console.log('Eu mudei o tempo do video')
             }
             lastTimeUpdate = time
@@ -99,17 +99,15 @@ function onPlayerReady(event) {
 
 var done = false;
 function onPlayerStateChange(event) {
+    console.log(control)
     if (event.data == YT.PlayerState.PLAYING && !done) done = true;
     let state = stateTypes.getType(event.data)
-    if(state == serverOrder.lastState) return
     if(state.action == 'Default') return
-    console.log('Eu dei ordem de: ',state)
-    state.currentTime = player.playerInfo.currentTime
-    state.clientName = 'Sem nomezinho aqui rapaz!'
     changeButtonTitle('Mudar de vídeo');
     sendNewState(state)
 }
 
 function sendNewState(state){
+    state.key = clientKey
     webSocket.send(JSON.stringify(state))
 }
