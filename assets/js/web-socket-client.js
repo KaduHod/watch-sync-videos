@@ -11,6 +11,7 @@ webSocket.addEventListener('message', handleMessageFromServer)
 
 function handleMessageFromServer({data}){
     const serverData = JSON.parse(data)
+    console.log(serverData)
     control.lastStateChangeFrom = 'server'
     playerActions[serverData.action](serverData)
 }
