@@ -1,4 +1,5 @@
 var playerCreated = false;
+var lastTimeUpdate = 0;
 const changeButtonTitle = title => botaoMudarVideo.innerText = title;
 const resetButtonValue  = () => text.value = '';
 function handleYoutubeEmbeddedPlayer(videoid){
@@ -21,14 +22,12 @@ function createPlayer(videoid){
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     playerCreated = true
-    console.log(player)
-    onYouTubeIframeAPIReady()
 }
 
 var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-    height: '360',
+    height: '500',
     width: '800',
     videoId: document.getElementById('videoid').dataset.videoid,
     color: 'black',
@@ -38,12 +37,49 @@ function onYouTubeIframeAPIReady() {
         'onError': error => alert('Infelzimente ocorreu um erro com o Player ;-;'),
         }   
     });
+
+    // This is the source "window" that will emit the events.
+    var iframeWindow = player.getIframe().contentWindow;
+
+  // So we can compare against new updates.
+    
+
+  // Listen to events triggered by postMessage.
+    window.addEventListener("message", function(event) {
+      // Check that the event was sent from the YouTube IFrame.
+      if (event.source === iframeWindow) {
+        var data = JSON.parse(event.data);
+  
+        // The "infoDelivery" event is used by YT to transmit any
+        // kind of information change in the player,
+        // such as the current time or a playback quality change.
+        if (
+            data.event === "infoDelivery" &&
+            data.info &&
+            data.info.currentTime
+        ) {
+          // currentTime is emitted very frequently,
+          // but we only care about whole second changes.
+            var time = Math.floor(data.info.currentTime);
+            if (time - 2 > lastTimeUpdate || time + 2 < lastTimeUpdate) {
+                sendNewState({action:'seek-to', toTime: time})
+            }
+            lastTimeUpdate = time
+        }
+      }
+    });
+    
 }
 
 function changeVideo(videoid){
+    lastTimeUpdate = 0;
     switch (playerCreated){
         case true:
-            player.loadVideoById(videoid, 0, 'large')
+            player.loadVideoById({
+                'videoId' : videoid,
+                'startSeconds' : 0,
+                'suggestedQuality': 'large'
+            })
             break;
         case false:
             createPlayer(videoid)
@@ -51,18 +87,24 @@ function changeVideo(videoid){
     }    
 }
 
+var playerTimer;
 function onPlayerReady(event) {
-    //event.target.mute();
+   
 }
 
+
+
 var done = false;
-newState = null;
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) done = true;
     let state = stateTypes.getType(event.data)
-        state.playerInfo = player.playerInfo
-    changeButtonTitle('Mudar de vídeo');
-    console.log('Enviando', state)
     if(state.action == 'Default') return
+    state.currentTime = player.playerInfo.currentTime
+    state.clientName = 'Sem nomezinho aqui rapaz!'
+    changeButtonTitle('Mudar de vídeo');
     sendNewState(state)
+}
+
+function sendNewState(state){
+    webSocket.send(JSON.stringify(state))
 }

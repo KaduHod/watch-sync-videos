@@ -16,6 +16,7 @@ button{
 .form-container input{
     width: 600px;
     margin-right: 10px;
+    box-shadow: 10px 0px 80px rgb(114, 114, 114);
 }
 .video-container{
     display: flex;
@@ -25,8 +26,8 @@ button{
     padding: 10px;
 }
 #player{
-    border: 1px solid ced4da;
     border-radius: 10px;
+    box-shadow: 10px 0px 80px rgb(114, 114, 114);
     
 }
 
