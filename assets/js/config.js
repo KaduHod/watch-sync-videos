@@ -1,7 +1,7 @@
 var playerCreated = false;
 var lastTimeUpdate = 0;
 const serverOrder = {
-    lastState = null
+    lastState : null
 }
 const stateTypes = {
     '-1' : { action:'Não iniciado',   stateId: "-1"},
