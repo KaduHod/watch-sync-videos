@@ -27,7 +27,7 @@ var player;
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
     height: '360',
-    width: '500',
+    width: '800',
     videoId: document.getElementById('videoid').dataset.videoid,
     color: 'black',
     events: {
@@ -60,5 +60,6 @@ function onPlayerStateChange(event) {
     let state = stateTypes.getType(event.data)
         state.playerInfo = player.playerInfo
     changeButtonTitle('Mudar de vídeo');
+    console.log('Enviando', state)
     sendNewState(state)
 }

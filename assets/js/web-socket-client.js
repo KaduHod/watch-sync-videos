@@ -9,8 +9,10 @@ webSocket.addEventListener('open', () => {
 webSocket.addEventListener('message', serverHandler)
 
 function serverHandler({data}){
+
+    console.log('Recebendo', data)
     const { action, dado } = JSON.parse(data)
-    actionsTypes[action]({ dado, player })
+    actionsTypes[action]({ dado })
 }
 
 botaoMudarVideo.addEventListener('click', sendNewVideo)
@@ -20,7 +22,7 @@ function sendNewVideo(){
     let id  = getVideoId(url)
     if(!id) return
     handleYoutubeEmbeddedPlayer(id)
-    webSocket.send(JSON.stringify({ dado: id, action: 'switch-video'}))
+    webSocket.send(JSON.stringify({ dado: id, action: 'switch-video', playerInfo : player.playerInfo}))
     resetButtonValue()
     changeButtonTitle('Mudar de vídeo')
 }
