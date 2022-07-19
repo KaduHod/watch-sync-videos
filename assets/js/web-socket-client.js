@@ -24,6 +24,7 @@ function sendNewVideo(){
     if(!id) return
     handleYoutubeEmbeddedPlayer(id)
     webSocket.send(JSON.stringify({ videoid: id, action: 'switch-video', key:clientKey }))
+    console.log((JSON.stringify({ videoid: id, action: 'switch-video', key:clientKey })))
     resetButtonValue()
     changeButtonTitle('Mudar de vídeo')
     control.lastStateChangeFrom = 'client'
