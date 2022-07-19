@@ -12,6 +12,7 @@ const playerActions = {
         player.seekTo(opt.seconds, true)
     },
     'switch-video': (opt) => {
+        console.log(opt)
         console.log('switch-video')
         changeVideo(opt.videoid)
     }
