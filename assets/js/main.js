@@ -61,5 +61,6 @@ function onPlayerStateChange(event) {
         state.playerInfo = player.playerInfo
     changeButtonTitle('Mudar de vídeo');
     console.log('Enviando', state)
+    if(state.action == 'Default') return
     sendNewState(state)
 }
