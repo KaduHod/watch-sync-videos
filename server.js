@@ -13,10 +13,10 @@ function handleWSS(ws, request){
 }
 
 function handleMessage(ws, data){
-    const {dado, action} = JSON.parse(data)
+    const {dado, action, playerInfo} = JSON.parse(data)
     wss.clients.forEach( client => {
         if(client !== ws && client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify({dado, action}))
+            client.send(JSON.stringify({dado, action, playerInfo}))
         }        
     }) 
 }
