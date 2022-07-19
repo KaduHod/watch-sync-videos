@@ -1,5 +1,3 @@
-var playerCreated = false;
-var lastTimeUpdate = 0;
 const changeButtonTitle = title => botaoMudarVideo.innerText = title;
 const resetButtonValue  = () => text.value = '';
 function handleYoutubeEmbeddedPlayer(videoid){
@@ -10,6 +8,7 @@ function handleYoutubeEmbeddedPlayer(videoid){
             break;
         case false:
             createPlayer(videoid);
+            
             break;
     }
 }
@@ -22,6 +21,7 @@ function createPlayer(videoid){
     let firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     playerCreated = true
+    if(!!lastTimeUpdate) lastTimeUpdate = 0
 }
 
 var player;

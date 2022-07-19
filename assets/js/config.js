@@ -1,3 +1,5 @@
+var playerCreated = false;
+var lastTimeUpdate = 0;
 const stateTypes = {
     '-1' : { action:'Não iniciado',   stateId: "-1"},
     '0'  : { action:'Encerrado',      stateId: "0" },
