@@ -11,7 +11,6 @@ function handleYoutubeEmbeddedPlayer(videoid){
             break;
         case false:
             createPlayer(videoid);
-            
             break;
     }
 }
@@ -66,6 +65,7 @@ function onYouTubeIframeAPIReady() {
             var time = Math.floor(data.info.currentTime);
             if (time - 2 > lastTimeUpdate || time + 2 < lastTimeUpdate) {
                 sendNewState({action:'seek-to', toTime: time})
+                console.log('Eu mudei o tempo do video')
             }
             lastTimeUpdate = time
         }
