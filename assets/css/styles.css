@@ -29,9 +29,7 @@ button{
     padding: 10px;
 }
 #player{
-    border-radius: 10px;
-    box-shadow: 10px 0px 80px rgb(114, 114, 114);
-    
+    border-radius: 10px;    
 }
 
 @media only screen and (max-width: 600px) {
