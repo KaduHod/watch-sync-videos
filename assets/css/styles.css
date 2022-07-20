@@ -1,5 +1,6 @@
 body{
     padding: 20px;
+    background-image: url('../img/layered-waves-haikei.svg');
 }
 .flex-direction-column{
     flex-direction: column;
