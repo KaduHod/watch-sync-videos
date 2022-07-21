@@ -99,8 +99,6 @@ function onPlayerReady(event) {
    
 }
 
-
-
 var done = false;
 function onPlayerStateChange(event) {
     console.log(control)
