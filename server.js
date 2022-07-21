@@ -9,11 +9,13 @@ require('dotenv').config()
 wss.on('connection', handleWSS)
 
 function handleWSS(ws, request){
+    console.log('recebi mensagem')
     ws.on('message', data => handleMessage(ws, data))
 }
 
 function handleMessage(ws, data){
     const {dado, action} = JSON.parse(data)
+    console.log({dado, action})
     wss.clients.forEach( client => {
         if(client !== ws && client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({dado, action}))
