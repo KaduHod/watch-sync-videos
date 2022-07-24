@@ -1,5 +1,4 @@
 function getSecondsFromVideoDuration(durationISO8603){
-    console.log(durationISO8603)
     const duration = durationISO8603.split('PT')[1]
     const durationObjt = filterHoursMinutesSecods(duration)
     

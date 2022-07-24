@@ -1,47 +1,42 @@
 const text              = document.getElementById('youtube-url')
-const botaoMudarVideo   = document.getElementById('url-button')
+const botaoMudarVideo   = document.getElementById('url-button') 
+
+connect.addEventListener('click', ()=>{
+    webSocket.send(JSON.stringify({message:'Hello'}))
+})
+
+
 const changeButtonTitle = title => {
     if(!!botaoMudarVideo == false) return
     botaoMudarVideo.innerText = title
 };
+var playerCreated = false;
+var lastTimeUpdate = 0;
 const resetButtonValue  = () => text.value = '';
-function handleYoutubeEmbeddedPlayer(videoid){
-    let playerExists = !!document.getElementById('videoid')
-    switch (playerExists){
-        case true:
-            changeVideo(videoid);
-            break;
-        case false:
-            createPlayer(videoid);
-            break;
-    }
-}
 
+botaoMudarVideo.addEventListener('click', changeVideo)
 
-
-
-
-
-function changeVideo(videoid){
+function changeVideo(event){
+    const videoid = getVideoId(text.value)
     lastTimeUpdate = 0;
-    switch (playerCreated){
+    switch (!!player){
         case true:
             player.loadVideoById({
                 'videoId' : videoid,
                 'startSeconds' : 0,
                 'suggestedQuality': 'large'
             })
+            
             break;
         case false:
             createPlayer(videoid)
             break;
     } 
+    sendActionToTheServer({action:'switch-video', data: {videoid}})
     handleSetVideoDuration(videoid)
 }
 
-
-
 function sendNewState(state){
     state.key = clientKey
-    webSocket.send(JSON.stringify(state))
+    //webSocket.send(JSON.stringify(state))
 }

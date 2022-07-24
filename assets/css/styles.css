@@ -67,6 +67,10 @@ button{
     display: none;
 }
 
+#player-control-input{
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
     .form-container input {
         width: 400px;

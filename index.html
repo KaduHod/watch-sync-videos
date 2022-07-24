@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body>
-    <div id="cliente" data-id="1"></div>
-    <h1>https://www.youtube.com/watch?v=0PwFujd0F1I</h1>
-    <h1>0PwFujd0F1I</h1>
+    <!-- <div id="cliente" data-id="1"></div> -->
+    <!-- <h1>https://www.youtube.com/watch?v=0PwFujd0F1I</h1> -->
+    <!-- <h1>0PwFujd0F1I</h1> -->
+    <!-- <button id='connect-to-server' >Send hello</button> -->
+    
+    <input type="hidden" id="state" value="pause">
     <div class="form-container flex-direction-column ">
         <div class="form-container" style="width: 80%;">
             <input class="form-control" type="text" id="youtube-url" placeholder="Copie e cole a url de um vídeo para transmitir">
@@ -21,29 +24,26 @@
         <div class="video-container">
             <div id="player"></div> 
 
-            <div class="player-control">
+            <div class="player-control" >
                 <div id="player-pause-play">
                     <ion-icon id="player-play"  class="" name="play-outline"></ion-icon>
                     <ion-icon id="player-pause" class="hidden" name="pause-circle-outline"></ion-icon>
                 </div>
 
-                <input class="" id="player-control-input" min="1" max="100" value="0" type="range">
+                <input  id="player-control-input" min="1" max="100" value="0" type="range">
 
-                <div id="player-timer">
-
-                </div>
+                <!-- <div id="player-timer"> -->
+<!--  -->
+                <!-- </div> -->
             </div>
         </div>
     </div>
 
     <script src="./assets/js/video-duration-in-seconds.js"></script>
-    <script src="./assets/js/client-key.js">               </script>
     <script src="./assets/js/youtube-api.js">              </script>
     <script src="./assets/js/config.js">                   </script>
     <script src="./assets/js/get-video-id.js">             </script>
     <script src="./assets/js/main.js">                     </script>
-    <script src="./assets/js/error-player.js">             </script>
-    <script src="./assets/js/actions.js">                  </script>
     <script src="./assets/js/web-socket-client.js">        </script>
     <script src="./assets/js/player-control.js">           </script>
 

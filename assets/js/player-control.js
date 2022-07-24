@@ -1,22 +1,50 @@
-const pausePlayPlayer = document.getElementById('player-pause-play')
-const inputRange      = document.getElementById('player-control-input')
-const play            = document.getElementById('player-play')
-const pause           = document.getElementById('player-pause')
+const pausePlayPlayer   = document.getElementById('player-pause-play')
+const inputRange        = document.getElementById('player-control-input')
+const play              = document.getElementById('player-play')
+const pause             = document.getElementById('player-pause')
+const stateInputControl = document.getElementById('state') 
 
-// play.addEventListener('click', tooglePausePlay)
-// pause.addEventListener('click', tooglePausePlay)
-pausePlayPlayer.addEventListener('click', tooglePausePlay)
+const inputIcons = {
+    'player-play'  : play,
+    'player-pause' : pause
+}
 
-function tooglePausePlay(){
-    const icons = [...pausePlayPlayer.getElementsByTagName('ion-icon')]
-    icons.forEach( icon => {
-        if(icon.classList.contains('hidden')) icon.classList.remove('hidden')
-        else icon.classList.add('hidden')
-    });
+play.addEventListener('click', run)
+pause.addEventListener('click', stop)
+inputRange.addEventListener('click', seekTo)
+
+function changeIconPlayer({toHide, toShow}){
+    inputIcons[toHide].classList.add('hidden')
+    inputIcons[toShow].classList.remove('hidden')
+}
+
+function run(){
+    changeIconPlayer({toShow : 'player-pause', toHide : 'player-play'})
+    stateInputControl.value = 'play'
+    playerActions['play']({})
+    sendActionToTheServer({action : 'play', data : {}})
+}
+
+function stop(){
+    changeIconPlayer({toHide : 'player-pause', toShow : 'player-play'})
+    stateInputControl.value = 'pause'
+    playerActions['pause']({})
+    sendActionToTheServer({action : 'pause', data : {}})
+}
+
+function seekTo(event){
+    const seconds = event.target.value
+    playerActions['seek-to']({seconds})
+    sendActionToTheServer({action : 'seek-to', data : {seconds}})
 }
 
 function setRangeValue(value){
     inputRange.value = value
+    setTitle(value)
+}
+
+function setTitle(value){
+    inputRange.title = value
 }
 
 function setMaxValueRange(value){
