@@ -1,3 +1,5 @@
+const text              = document.getElementById('youtube-url')
+const botaoMudarVideo   = document.getElementById('url-button')
 const changeButtonTitle = title => {
     if(!!botaoMudarVideo == false) return
     botaoMudarVideo.innerText = title
@@ -15,68 +17,10 @@ function handleYoutubeEmbeddedPlayer(videoid){
     }
 }
 
-function createPlayer(videoid){
-    let tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    tag.dataset.videoid = videoid
-    tag.id = 'videoid'
-    let firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    playerCreated = true
-    if(!!lastTimeUpdate) lastTimeUpdate = 0
-}
 
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-    height: '500',
-    width: '800',
-    videoId: document.getElementById('videoid').dataset.videoid,
-    color: 'black',
-    events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange,
-        'onError': e => {
-            alert('Infelzimente ocorreu um erro com o Player ;-;')
-            console.log(e.data)
-            console.log(errorApi[e.data.toString()])
-        },
-        }   
-    });
 
-    // This is the source "window" that will emit the events.
-    var iframeWindow = player.getIframe().contentWindow;
 
-  // So we can compare against new updates.
-    
 
-  // Listen to events triggered by postMessage.
-    window.addEventListener("message", function(event) {
-      // Check that the event was sent from the YouTube IFrame.
-      if (event.source === iframeWindow) {
-        var data = JSON.parse(event.data);
-  
-        // The "infoDelivery" event is used by YT to transmit any
-        // kind of information change in the player,
-        // such as the current time or a playback quality change.
-        if (
-            data.event === "infoDelivery" &&
-            data.info &&
-            data.info.currentTime
-        ) {
-          // currentTime is emitted very frequently,
-          // but we only care about whole second changes.
-            var time = Math.floor(data.info.currentTime);
-            if (time - 2 > lastTimeUpdate || time + 2 < lastTimeUpdate) {
-                sendNewState({action:'seek-to', seconds: time, key:clientKey})
-                console.log('Eu mudei o tempo do video')
-            }
-            lastTimeUpdate = time
-        }
-      }
-    });
-    
-}
 
 function changeVideo(videoid){
     lastTimeUpdate = 0;
@@ -91,23 +35,11 @@ function changeVideo(videoid){
         case false:
             createPlayer(videoid)
             break;
-    }    
+    } 
+    handleSetVideoDuration(videoid)
 }
 
-var playerTimer;
-function onPlayerReady(event) {
-   
-}
 
-var done = false;
-function onPlayerStateChange(event) {
-    console.log(control)
-    if (event.data == YT.PlayerState.PLAYING && !done) done = true;
-    let state = stateTypes.getType(event.data)
-    if(state.action == 'Default') return
-    changeButtonTitle('Mudar de vídeo');
-    sendNewState(state)
-}
 
 function sendNewState(state){
     state.key = clientKey

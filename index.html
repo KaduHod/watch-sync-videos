@@ -10,30 +10,49 @@
 </head>
 <body>
     <div id="cliente" data-id="1"></div>
+    <h1>https://www.youtube.com/watch?v=0PwFujd0F1I</h1>
+    <h1>0PwFujd0F1I</h1>
     <div class="form-container flex-direction-column ">
         <div class="form-container" style="width: 80%;">
             <input class="form-control" type="text" id="youtube-url" placeholder="Copie e cole a url de um vídeo para transmitir">
             <button class="btn btn-success" id="url-button">Transmitir</button>
         </div>
+
         <div class="video-container">
             <div id="player"></div> 
+
+            <div class="player-control">
+                <div id="player-pause-play">
+                    <ion-icon id="player-play"  class="" name="play-outline"></ion-icon>
+                    <ion-icon id="player-pause" class="hidden" name="pause-circle-outline"></ion-icon>
+                </div>
+
+                <input class="" id="player-control-input" min="1" max="100" value="0" type="range">
+
+                <div id="player-timer">
+
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="./assets/js/errorPlayer.js"></script>
-    <!--Client key-->
-    <script src="./assets/js/clientKey.js"></script>
-    <!-- Literals -->
-    <script src="./assets/js/config.js"></script>
-    <!-- Video id -->
-    <script src="./assets/js/get-video-id.js"></script>
-    <!-- Video Logic -->
-    <script src="./assets/js/main.js"></script>
-    <!-- Player actions -->
-    <script src="./assets/js/actions.js"></script>
-    <!-- Web Socket Client -->
-    <script src="./assets/js/web-socket-client.js"></script>
+    <script src="./assets/js/video-duration-in-seconds.js"></script>
+    <script src="./assets/js/client-key.js">               </script>
+    <script src="./assets/js/youtube-api.js">              </script>
+    <script src="./assets/js/config.js">                   </script>
+    <script src="./assets/js/get-video-id.js">             </script>
+    <script src="./assets/js/main.js">                     </script>
+    <script src="./assets/js/error-player.js">             </script>
+    <script src="./assets/js/actions.js">                  </script>
+    <script src="./assets/js/web-socket-client.js">        </script>
+    <script src="./assets/js/player-control.js">           </script>
+
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <!-- Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 body{
-    padding: 20px;
+    padding: 10px;
     background-image: url('../img/layered-waves-haikei.svg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -19,7 +19,7 @@ button{
 .form-container input{
     width: 600px;
     margin-right: 10px;
-    box-shadow: 10px 0px 80px rgb(114, 114, 114);
+    
 }
 .video-container{
     display: flex;
@@ -30,6 +30,41 @@ button{
 }
 #player{
     border-radius: 10px;    
+}
+.player-control{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+.player-control #player-control-input{
+    width: 90%;
+    margin-top: 10px;
+    padding: 0;
+    margin: 0;
+}
+.player-control #player-pause-play{
+    width: fit-content;
+}
+#player-pause-play{
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+#player-pause-play ion-icon{
+    color: white;
+    transform: scale(2);
+}
+.player-control #player-timer{
+    width: 5%;
+    border: 1px solid red;
+}
+#player-timer{
+    margin-left: 5px;
+}
+.hidden{
+    display: none;
 }
 
 @media only screen and (max-width: 600px) {
