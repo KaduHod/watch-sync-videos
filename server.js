@@ -5,31 +5,33 @@ const WebSocket  = require('ws')
 const server = createServer(app)
 const wss = new WebSocket.Server({server})
 const cors = require('cors')
-const control = {
-    lastKey : null
-}
 
 require('dotenv').config()
 
-wss.on('connection', handleWSS)
+let clientKey = () => (Math.random() + 1).toString(36).substring(7)
 
-function handleWSS(ws, request){
-    console.log('recebi mensagem')
-    ws.on('message', data => handleMessage(ws, data))
-}
+wss.on('connection', handleWSS)
+    function handleWSS(ws, request, client){
+        if(!ws.key) ws.key = clientKey();
+        
+        ws.on('message', data => handleMessage(ws, data))
+    }
+
+wss.on('close', close)
+    function close(){
+        console.log('disconnected')
+    }
 
 app.use(cors({
     origin: ['https://watch-sync-videos.vercel.app', 'https://www.youtube.com']
 }));
 
 function handleMessage(ws, data){
-    const {key} = JSON.parse(data)
-    wss.clients.forEach( function each(client){
-        if(client !== ws && client.readyState === WebSocket.OPEN /*&& key !== control.lastKey*/) {
-            console.log('to mandando pro outro cliente', JSON.parse(data))
-            control.lastKey = key
-            client.send(JSON.stringify(JSON.parse(data)))
-        }        
+    const dado = JSON.parse(data)
+    wss.clients.forEach(function each(client){
+        const verify = (dado.action === 'new connection' || (client !== ws && client.key !== ws.key) && client.readyState === WebSocket.OPEN)
+
+        if( verify ) client.send(JSON.stringify(JSON.parse(data))); 
     }) 
 }
 
