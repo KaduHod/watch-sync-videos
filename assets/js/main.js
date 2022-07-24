@@ -1,11 +1,6 @@
 const text              = document.getElementById('youtube-url')
 const botaoMudarVideo   = document.getElementById('url-button') 
 
-connect.addEventListener('click', ()=>{
-    webSocket.send(JSON.stringify({message:'Hello'}))
-})
-
-
 const changeButtonTitle = title => {
     if(!!botaoMudarVideo == false) return
     botaoMudarVideo.innerText = title
