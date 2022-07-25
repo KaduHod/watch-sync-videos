@@ -12,6 +12,7 @@ let clientKey = () => (Math.random() + 1).toString(36).substring(7)
 
 wss.on('connection', handleWSS)
     function handleWSS(ws, request, client){
+        console.log('New message')
         if (!ws.key) ws.key = clientKey();
         
         ws.on('message', data => handleMessage(ws, data))
