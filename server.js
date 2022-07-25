@@ -29,8 +29,8 @@ app.use(cors({
 function handleMessage(ws, data){
     const dado = JSON.parse(data)
     console.log(dado)
-    wss.clients.forEach(function each(client){
-        const verify = (dado.action === 'new connection' || (client !== ws && client.key !== ws.key) && client.readyState === WebSocket.OPEN)
+    wss.clients.forEach( client => {
+        const verify = ( (client !== ws && client.key !== ws.key) && (client.readyState === WebSocket.OPEN))
 
         if( verify ) client.send(JSON.stringify(JSON.parse(data))); 
     }) 
