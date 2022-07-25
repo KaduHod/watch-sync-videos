@@ -12,6 +12,7 @@ webSocket.addEventListener('message', handleMessageFromServer)
 
 function handleMessageFromServer(dado){
     const serverData = JSON.parse(dado.data); 
+    console.log(serverData)
 
     if(serverData.action === 'play') changeIconPlayer({toShow : 'player-pause', toHide : 'player-play'});
     

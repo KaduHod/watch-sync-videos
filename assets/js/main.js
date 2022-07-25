@@ -2,7 +2,7 @@ const text              = document.getElementById('youtube-url')
 const botaoMudarVideo   = document.getElementById('url-button') 
 
 const changeButtonTitle = title => {
-    if(!!botaoMudarVideo == false) return
+    if(!botaoMudarVideo) return
     botaoMudarVideo.innerText = title
 };
 var playerCreated = false;
@@ -29,9 +29,4 @@ function changeVideo(event){
     } 
     sendActionToTheServer({action:'switch-video', data: {videoid}})
     handleSetVideoDuration(videoid)
-}
-
-function sendNewState(state){
-    state.key = clientKey
-    //webSocket.send(JSON.stringify(state))
 }
