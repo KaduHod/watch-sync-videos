@@ -24,7 +24,12 @@ wss.on('close', close)
     }
 
 app.use(cors({
-    origin: ['https://watch-sync-videos.vercel.app', 'https://www.youtube.com','http://127.0.0.1:5500/index2.html', 'http://127.0.0.1:5500/index.html']
+    origin: [
+        'https://watch-sync-videos.vercel.app',
+        'https://www.youtube.com',
+        'http://127.0.0.1:5500/index2.html', 
+        'http://127.0.0.1:5500/index.html'
+    ]
 }));
 
 function handleMessage(ws, data){
