@@ -34,7 +34,7 @@ app.use(cors({
 
 function handleMessage(ws, data){
     const dado = JSON.parse(data)
-    console.log(dado)
+    console.log('Aqui carai',dado)
     wss.clients.forEach( client => {
         const verify = ( (client !== ws && client.key !== ws.key) && (client.readyState === WebSocket.OPEN))
 
