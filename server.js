@@ -12,7 +12,7 @@ let clientKey = () => (Math.random() + 1).toString(36).substring(7)
 
 wss.on('connection', handleWSS)
     function handleWSS(ws, request, client){
-        if(!ws.key) ws.key = clientKey();
+        if (!ws.key) ws.key = clientKey();
         
         ws.on('message', data => handleMessage(ws, data))
     }
@@ -28,6 +28,7 @@ app.use(cors({
 
 function handleMessage(ws, data){
     const dado = JSON.parse(data)
+    console.log(dado)
     wss.clients.forEach(function each(client){
         const verify = (dado.action === 'new connection' || (client !== ws && client.key !== ws.key) && client.readyState === WebSocket.OPEN)
 
