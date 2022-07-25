@@ -37,4 +37,4 @@ function handleMessage(ws, data){
 }
 
 server.listen(3000, () => 
-        console.log('Web Socket server running at localhost:3000'))
+        console.log('Web Socket server running'))
