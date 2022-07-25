@@ -11,7 +11,7 @@ webSocket.addEventListener('open', () => {
 webSocket.addEventListener('message', handleMessageFromServer)
 
 function handleMessageFromServer(dado){
-    console.log('dado do servidor puro', JSON.parse(dado))
+    console.log('dado do servidor puro', dado)
     const serverData = JSON.parse(dado.data); 
     console.log(serverData)
 
